@@ -1,5 +1,5 @@
 name: fetch_result_bloc
-description: A simple package to fetch data from a remote API and return the result as a Bloc state.
+description: Abstract BLoC/Cubit components for simplified data fetching and state management.
 version: 1.0.0
 repository: https://github.com/nayefradwi/fetch_result_bloc
 
