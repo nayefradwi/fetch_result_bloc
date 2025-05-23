@@ -26,6 +26,7 @@ abstract class FetchResultBloc<P, T>
     FetchLoadResultEvent<P> event,
     Emitter<FetchResultState<T>> emit,
   ) async {
+    if (state.isLoadingOrRefreshing) return;
     emit(const FetchResultState.loading());
     final params = event.params;
     return _fetchResult(params, emit);
@@ -35,6 +36,7 @@ abstract class FetchResultBloc<P, T>
     FetchRefreshResultEvent<P> event,
     Emitter<FetchResultState<T>> emit,
   ) async {
+    if (state.isLoadingOrRefreshing) return;
     emit(const FetchResultState.refreshing());
     final params = event.params;
     return _fetchResult(params, emit);
@@ -43,7 +45,6 @@ abstract class FetchResultBloc<P, T>
   FutureResult<T> getResult(P params);
 
   Future<void> _fetchResult(P params, Emitter<FetchResultState<T>> emit) async {
-    if (state.isLoadingOrRefreshing) return;
     final result = await getResult(params);
     result.on(
       success: (data) => emit(FetchResultState.loaded(data)),
