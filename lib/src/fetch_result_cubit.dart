@@ -17,6 +17,7 @@ abstract class FetchResultCubit<T, P> extends Cubit<FetchResultState<T>> {
       return emit(FetchResultState.error(err));
     }
 
+    if (state.isLoadingOrRefreshing) return;
     emit(const FetchResultState.loading());
     return _fetchResult(params);
   }
@@ -28,12 +29,12 @@ abstract class FetchResultCubit<T, P> extends Cubit<FetchResultState<T>> {
       return emit(FetchResultState.error(err));
     }
 
+    if (state.isLoadingOrRefreshing) return;
     emit(const FetchResultState.refreshing());
     return _fetchResult(params);
   }
 
   Future<void> _fetchResult(P params) async {
-    if (state.isLoadingOrRefreshing) return;
     final result = await getResult(params);
     result.on(
       success: (data) => emit(FetchResultState.loaded(data)),
