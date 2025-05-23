@@ -1,39 +1,66 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A Dart package providing `FetchResultBloc` and `FetchResultCubit` to simplify
+managing states for asynchronous data fetching operations.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- ✨ Simplifies state management for asynchronous data fetching operations.
+- 🧱 Provides `FetchResultBloc` for event-driven state management.
+- 🧊 Offers `FetchResultCubit` for simpler, direct state management.
+- 🚦 Clearly defines states for loading, success (with data), and error (with details).
+- 🛠️ Customizable error handling options.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+1. **Add dependency**: Add `fetch_result_bloc` to your `pubspec.yaml`:
+   ```yaml
+   dependencies:
+     fetch_result_bloc: ^1.0.0 # Replace with the latest version
+   ```
+2. **Install**: Run `dart pub get` or `flutter pub get`.
+3. **Import**: Import the package in your Dart code:
+   ```dart
+   import 'package:fetch_result_bloc/fetch_result_bloc.dart';
+   ```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Here's a basic example of using `FetchResultCubit` to fetch a value:
 
 ```dart
-const like = 'sample';
+import 'package:fetch_result_bloc/fetch_result_bloc.dart';
+import 'package:result_flow/result_flow.dart';
+
+// Define your Cubit
+class CounterCubit extends FetchResultCubit<int, void> {
+  CounterCubit() : super(const FetchResultStateInitial());
+
+  @override
+  FutureResult<int> getResult(void param) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return Result.success(42);
+  }
+}
+
+void main() async {
+  final cubit = CounterCubit();
+  cubit.stream.listen(print);
+
+  // call fetch when required
+  await cubit.fetch();
+  await Future.delayed(const Duration(seconds: 2));
+  cubit.close();
+}
 ```
 
-## Additional information
+For more detailed examples, including `FetchResultBloc` usage and error handling,
+please see the `/example` folder.
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+## Related Packages
+
+`fetch_result_bloc` is built on top of `result_flow` to simplify asynchronous fetch operations ins a safe way
+
+| Package             | Pub.dev Link                                                                                                     |
+| :------------------ | :--------------------------------------------------------------------------------------------------------------- |
+| `fetch_result_bloc` | [![pub package](https://img.shields.io/pub/v/fetch_result_bloc.svg)](https://pub.dev/packages/fetch_result_bloc) |
+| `result_flow`       | [![pub package](https://img.shields.io/pub/v/result_flow.svg)](https://pub.dev/packages/result_flow)             |
+| `result_flow_dio`   | [![pub package](https://img.shields.io/pub/v/result_flow_dio.svg)](https://pub.dev/packages/result_flow_dio)     |

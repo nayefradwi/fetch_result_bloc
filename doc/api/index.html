@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="fetch_result_bloc API docs, for the Dart programming language.">
+  <title>fetch_result_bloc - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li class="self-crumb">fetch_result_bloc package</li>
+  </ol>
+  <div class="self-name">fetch_result_bloc</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <p>A Dart package providing <code>FetchResultBloc</code> and <code>FetchResultCubit</code> to simplify
+managing states for asynchronous data fetching operations.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li>✨ Simplifies state management for asynchronous data fetching operations.</li>
+<li>🧱 Provides <code>FetchResultBloc</code> for event-driven state management.</li>
+<li>🧊 Offers <code>FetchResultCubit</code> for simpler, direct state management.</li>
+<li>🚦 Clearly defines states for loading, success (with data), and error (with details).</li>
+<li>🛠️ Customizable error handling options.</li>
+</ul>
+<h2 id="getting-started">Getting started</h2>
+<ol>
+<li><strong>Add dependency</strong>: Add <code>fetch_result_bloc</code> to your <code>pubspec.yaml</code>:
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  fetch_result_bloc: ^1.0.0 # Replace with the latest version
+</code></pre>
+</li>
+<li><strong>Install</strong>: Run <code>dart pub get</code> or <code>flutter pub get</code>.</li>
+<li><strong>Import</strong>: Import the package in your Dart code:
+<pre class="language-dart"><code class="language-dart">import 'package:fetch_result_bloc/fetch_result_bloc.dart';
+</code></pre>
+</li>
+</ol>
+<h2 id="usage">Usage</h2>
+<p>Here's a basic example of using <code>FetchResultCubit</code> to fetch a value:</p>
+<pre class="language-dart"><code class="language-dart">import 'package:fetch_result_bloc/fetch_result_bloc.dart';
+import 'package:result_flow/result_flow.dart';
+
+// Define your Cubit
+class CounterCubit extends FetchResultCubit&lt;int, void&gt; {
+  CounterCubit() : super(const FetchResultStateInitial());
+
+  @override
+  FutureResult&lt;int&gt; getResult(void param) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return Result.success(42);
+  }
+}
+
+void main() async {
+  final cubit = CounterCubit();
+  cubit.stream.listen(print);
+
+  // call fetch when required
+  await cubit.fetch();
+  await Future.delayed(const Duration(seconds: 2));
+  cubit.close();
+}
+</code></pre>
+<p>For more detailed examples, including <code>FetchResultBloc</code> usage and error handling,
+please see the <code>/example</code> folder.</p>
+<h2 id="related-packages">Related Packages</h2>
+<p><code>fetch_result_bloc</code> is built on top of <code>result_flow</code> to simplify asynchronous fetch operations ins a safe way</p>
+<table>
+<thead>
+<tr>
+<th align="left">Package</th>
+<th align="left">Pub.dev Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>fetch_result_bloc</code></td>
+<td align="left"><a href="https://pub.dev/packages/fetch_result_bloc"><img src="https://img.shields.io/pub/v/fetch_result_bloc.svg" alt="pub package"></a></td>
+</tr>
+<tr>
+<td align="left"><code>result_flow</code></td>
+<td align="left"><a href="https://pub.dev/packages/result_flow"><img src="https://img.shields.io/pub/v/result_flow.svg" alt="pub package"></a></td>
+</tr>
+<tr>
+<td align="left"><code>result_flow_dio</code></td>
+<td align="left"><a href="https://pub.dev/packages/result_flow_dio"><img src="https://img.shields.io/pub/v/result_flow_dio.svg" alt="pub package"></a></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="fetch_result_bloc">
+  <span class="name"><a href="fetch_result_bloc/">fetch_result_bloc</a></span> 
+
+</dt>
+<dd>A Dart package providing abstract BLoC and Cubit components for simplifying
+common data fetching and state management patterns.
+</dd>
+
+        </dl>
+      </section>
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li class="self-crumb">fetch_result_bloc package</li>
+</ol>
+
+    <h5 class="hidden-xs"><span class="package-name">fetch_result_bloc</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="fetch_result_bloc/">fetch_result_bloc</a></li>
+</ol>
+
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+</main>
+<footer>
+  <span class="no-break">
+    fetch_result_bloc
+      1.0.0
+  </span>
+  
+</footer>
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
