@@ -8,7 +8,7 @@ abstract class FetchResultCubit<T, P> extends Cubit<FetchResultState<T>> {
     : super(initialState ?? const FetchResultState.initial());
   final P? params;
 
-  FutureResult<T> getResult({P? params});
+  FutureResult<T> getResult(P params);
 
   Future<void> fetch({P? params}) async {
     params ??= this.params;
@@ -18,7 +18,7 @@ abstract class FetchResultCubit<T, P> extends Cubit<FetchResultState<T>> {
     }
 
     emit(const FetchResultState.loading());
-    return _fetchResult();
+    return _fetchResult(params);
   }
 
   Future<void> refresh({P? params}) async {
@@ -29,12 +29,12 @@ abstract class FetchResultCubit<T, P> extends Cubit<FetchResultState<T>> {
     }
 
     emit(const FetchResultState.refreshing());
-    return _fetchResult();
+    return _fetchResult(params);
   }
 
-  Future<void> _fetchResult() async {
+  Future<void> _fetchResult(P params) async {
     if (state.isLoadingOrRefreshing) return;
-    final result = await getResult(params: params);
+    final result = await getResult(params);
     result.on(
       success: (data) => emit(FetchResultState.loaded(data)),
       error: (error) => emit(FetchResultState.error(error)),
