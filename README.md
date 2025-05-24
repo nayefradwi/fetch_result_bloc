@@ -7,7 +7,6 @@ managing states for asynchronous data fetching operations.
 - 🧱 Provides `FetchResultBloc` for event-driven state management.
 - 🧊 Offers `FetchResultCubit` for simpler, direct state management.
 - 🚦 Clearly defines states for loading, success (with data), and error (with details).
-- 🛠️ Customizable error handling options.
 
 ## Getting started
 
@@ -52,8 +51,7 @@ void main() async {
 }
 ```
 
-For more detailed examples, including `FetchResultBloc` usage and error handling,
-please see the `/example` folder.
+For more detailed examples, including `FetchResultBloc` usage please see the `/example` folder.
 
 ## Related Packages
 

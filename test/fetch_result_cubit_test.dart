@@ -14,33 +14,31 @@ FutureResult<String> fetchResult(bool shouldFail) async {
 }
 
 class MockFetchResultCubit extends FetchResultCubit<String, bool> {
-  MockFetchResultCubit({super.initialState, super.params});
+  MockFetchResultCubit({super.initialState});
 
   @override
-  FutureResult<String> getResult(bool params) => fetchResult(params);
+  FutureResult<String> getResult({required bool param}) => fetchResult(param);
+}
+
+class VoidMockFetchResultCubit extends FetchResultCubit<String, void> {
+  VoidMockFetchResultCubit();
+
+  @override
+  Future<void> fetch({void param}) => super.fetch(param: null);
+
+  @override
+  Future<void> refresh({void param}) => super.refresh(param: null);
+
+  @override
+  FutureResult<String> getResult({void param}) async =>
+      Result.success('success');
 }
 
 void main() {
   blocTest<MockFetchResultCubit, FetchResultState<String>>(
     'FetchResultCubit - should emit [loading, loaded]',
-    build: () => MockFetchResultCubit(params: false),
-    act: (cubit) => cubit.fetch(),
-    wait: blocTestWait,
-    expect: () => [
-      isA<FetchResultStateLoading<String>>(),
-      isA<FetchResultStateLoaded<String>>(),
-    ],
-    verify: (cubit) {
-      expect(cubit.state, isA<FetchResultStateLoaded<String>>());
-      final state = cubit.state as FetchResultStateLoaded<String>;
-      expect(state.data, 'success');
-    },
-  );
-
-  blocTest<MockFetchResultCubit, FetchResultState<String>>(
-    'FetchResultCubit - should emit [loading, loaded] with override params',
-    build: () => MockFetchResultCubit(params: true),
-    act: (cubit) => cubit.fetch(params: false),
+    build: MockFetchResultCubit.new,
+    act: (cubit) => cubit.fetch(param: false),
     wait: blocTestWait,
     expect: () => [
       isA<FetchResultStateLoading<String>>(),
@@ -56,10 +54,9 @@ void main() {
   blocTest<MockFetchResultCubit, FetchResultState<String>>(
     'FetchResultCubit - should emit [refreshing, loaded]',
     build: () => MockFetchResultCubit(
-      params: false,
       initialState: const FetchResultState.loaded('initial data'),
     ),
-    act: (cubit) => cubit.refresh(),
+    act: (cubit) => cubit.refresh(param: false),
     wait: blocTestWait,
     expect: () => [
       isA<FetchResultStateRefreshing<String>>(),
@@ -74,13 +71,13 @@ void main() {
 
   blocTest<MockFetchResultCubit, FetchResultState<String>>(
     '''FetchResultCubit - should emit [loading, loaded] even after calling multiple times''',
-    build: () => MockFetchResultCubit(params: false),
+    build: MockFetchResultCubit.new,
     wait: blocTestWait,
     act: (cubit) {
       cubit
-        ..fetch()
-        ..fetch()
-        ..fetch();
+        ..fetch(param: false)
+        ..fetch(param: true)
+        ..fetch(param: false);
     },
     expect: () => [
       isA<FetchResultStateLoading<String>>(),
@@ -96,15 +93,14 @@ void main() {
   blocTest<MockFetchResultCubit, FetchResultState<String>>(
     '''FetchResultCubit - should emit [refreshing, loaded] even after calling multiple times''',
     build: () => MockFetchResultCubit(
-      params: false,
       initialState: const FetchResultState.loaded('initial data'),
     ),
     wait: blocTestWait,
     act: (cubit) {
       cubit
-        ..refresh()
-        ..refresh()
-        ..refresh();
+        ..refresh(param: false)
+        ..refresh(param: true)
+        ..refresh(param: false);
     },
     expect: () => [
       isA<FetchResultStateRefreshing<String>>(),
@@ -119,8 +115,8 @@ void main() {
 
   blocTest<MockFetchResultCubit, FetchResultState<String>>(
     'FetchResultCubit - should emit [loading, error] when fetch fails',
-    build: () => MockFetchResultCubit(params: true),
-    act: (cubit) => cubit.fetch(),
+    build: MockFetchResultCubit.new,
+    act: (cubit) => cubit.fetch(param: true),
     wait: blocTestWait,
     expect: () => [
       isA<FetchResultStateLoading<String>>(),
@@ -136,11 +132,10 @@ void main() {
   blocTest<MockFetchResultCubit, FetchResultState<String>>(
     'FetchResultCubit - should emit [refreshing, error] when refresh fails',
     build: () => MockFetchResultCubit(
-      params: true,
       initialState: const FetchResultState.loaded('initial data'),
     ),
     wait: blocTestWait,
-    act: (cubit) => cubit.refresh(),
+    act: (cubit) => cubit.refresh(param: true),
     expect: () => [
       isA<FetchResultStateRefreshing<String>>(),
       isA<FetchResultStateError<String>>(),
@@ -152,23 +147,35 @@ void main() {
     },
   );
 
-  blocTest<MockFetchResultCubit, FetchResultState<String>>(
-    '''FetchResultCubit - should emit [loading, error] when fetch fails with null params''',
-    build: MockFetchResultCubit.new,
+  blocTest<VoidMockFetchResultCubit, FetchResultState<String>>(
+    'VoidFetchResultCubit - should emit [loading, loaded] with void param',
+    build: VoidMockFetchResultCubit.new,
     act: (cubit) => cubit.fetch(),
     wait: blocTestWait,
-    expect: () => [isA<FetchResultStateError<String>>()],
+    expect: () => [
+      isA<FetchResultStateLoading<String>>(),
+      isA<FetchResultStateLoaded<String>>(),
+    ],
     verify: (cubit) {
-      expect(cubit.state, isA<FetchResultStateError<String>>());
-      final state = cubit.state as FetchResultStateError<String>;
-      expect(
-        state.error.message,
-        FetchResultErrorOptions.cannotFetchWithNullParams.message,
-      );
-      expect(
-        state.error.code,
-        FetchResultErrorOptions.cannotFetchWithNullParams.code,
-      );
+      expect(cubit.state, isA<FetchResultStateLoaded<String>>());
+      final state = cubit.state as FetchResultStateLoaded<String>;
+      expect(state.data, 'success');
+    },
+  );
+
+  blocTest<VoidMockFetchResultCubit, FetchResultState<String>>(
+    'VoidFetchResultCubit - should emit [refreshing, loaded] with void param',
+    build: VoidMockFetchResultCubit.new,
+    act: (cubit) => cubit.refresh(),
+    wait: blocTestWait,
+    expect: () => [
+      isA<FetchResultStateRefreshing<String>>(),
+      isA<FetchResultStateLoaded<String>>(),
+    ],
+    verify: (cubit) {
+      expect(cubit.state, isA<FetchResultStateLoaded<String>>());
+      final state = cubit.state as FetchResultStateLoaded<String>;
+      expect(state.data, 'success');
     },
   );
 }

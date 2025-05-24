@@ -29,7 +29,7 @@ class Weather {
 }
 
 class WeatherCubit extends FetchResultCubit<Weather, String> {
-  WeatherCubit({String? initialCity}) : super(params: initialCity);
+  WeatherCubit() : super();
 
   final Random _random = Random();
   final List<String> _conditions = [
@@ -42,13 +42,13 @@ class WeatherCubit extends FetchResultCubit<Weather, String> {
   ];
 
   @override
-  FutureResult<Weather> getResult(String city) async {
+  FutureResult<Weather> getResult({required String param}) async {
     await Future<void>.delayed(const Duration(milliseconds: 800));
 
     if (_random.nextInt(10) < 1) {
       return Result.error(
         DomainError(
-          'Simulated API error: Could not fetch weather for $city',
+          'Simulated API error: Could not fetch weather for $param',
           code: 'WEATHER_API_FAILURE',
         ),
       );
@@ -59,7 +59,7 @@ class WeatherCubit extends FetchResultCubit<Weather, String> {
 
     return Result.success(
       Weather(
-        city: city,
+        city: param,
         temperature: temp.toString(),
         condition: condition,
         lastUpdated: DateTime.now(),
@@ -70,7 +70,7 @@ class WeatherCubit extends FetchResultCubit<Weather, String> {
 
 Future<void> main() async {
   const cityToFetch = 'London';
-  final weatherCubit = WeatherCubit(initialCity: cityToFetch);
+  final weatherCubit = WeatherCubit();
 
   print('--- Weather Fetch Example --- ');
   print('Observing weather for: $cityToFetch');
@@ -96,10 +96,10 @@ Future<void> main() async {
     }
   });
 
-  await weatherCubit.fetch();
+  await weatherCubit.fetch(param: cityToFetch);
 
   Timer.periodic(const Duration(seconds: 10), (timer) {
     print('\n[TIMER]: Triggering weather refresh for $cityToFetch...');
-    weatherCubit.refresh();
+    weatherCubit.refresh(param: cityToFetch);
   });
 }
