@@ -55,7 +55,7 @@
     <section class="multi-line-signature">
       
 <span class="returntype"><a href="https://api.dart.dev/stable/3.8.0/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-<span class="name ">refresh</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="refresh-param-params"><span class="type-annotation">P?</span> <span class="parameter-name">params</span>, </span></li>
+<span class="name ">refresh</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="refresh-param-param"><span>required</span> <span class="type-annotation">P</span> <span class="parameter-name">param</span>, </span></li>
 </ol>})
 
       
@@ -65,11 +65,6 @@
 <section class="desc markdown">
   <p>Initiates a refresh operation.</p>
 <p>Emits <a href="../../fetch_result_bloc/FetchResultState/FetchResultState.refreshing.html">FetchResultState.refreshing</a> before fetching.
-If <code>params</code> are not provided to this method, it uses the <code>this.params</code>
-(if available).
-If no parameters are available (neither passed nor stored), it emits
-<a href="../../fetch_result_bloc/FetchResultState/FetchResultState.error.html">FetchResultState.error</a> with
-<a href="../../fetch_result_bloc/FetchResultErrorOptions/cannotFetchWithNullParams.html">FetchResultErrorOptions.cannotFetchWithNullParams</a>.
 If the cubit is already in a loading or refreshing state, this method
 does nothing.</p>
 </section>
@@ -78,16 +73,10 @@ does nothing.</p>
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; refresh({P? params}) async {
-  params ??= this.params;
-  if (params == null) {
-    final err = FetchResultErrorOptions.cannotFetchWithNullParams;
-    return emit(FetchResultState.error(err));
-  }
-
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; refresh({required P param}) async {
   if (state.isLoadingOrRefreshing) return;
   emit(const FetchResultState.refreshing());
-  return _fetchResult(params);
+  return _fetchResult(param);
 }</code></pre>
 </section>
 

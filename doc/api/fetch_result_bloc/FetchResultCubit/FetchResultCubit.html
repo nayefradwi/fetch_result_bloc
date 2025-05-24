@@ -55,7 +55,6 @@
     <section class="multi-line-signature">
       
       <span class="name ">FetchResultCubit&lt;<wbr><span class="type-parameter">T</span>, <span class="type-parameter">P</span>&gt;</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="-param-initialState"><span class="type-annotation"><a href="../../fetch_result_bloc/FetchResultState-class.html">FetchResultState</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span>?</span> <span class="parameter-name">initialState</span>, </span></li>
-<li><span class="parameter" id="-param-params"><span class="type-annotation">P?</span> <span class="parameter-name">params</span>, </span></li>
 </ol>})
     </section>
     
@@ -64,8 +63,6 @@
 <ul>
 <li><code>initialState</code>: The initial state of the Cubit. Defaults to
 <a href="../../fetch_result_bloc/FetchResultState/FetchResultState.initial.html">FetchResultState.initial</a>.</li>
-<li><code>params</code>: Optional default parameters to be used for fetch/refresh
-operations if no specific parameters are provided to those methods.</li>
 </ul>
 </section>
 
@@ -73,7 +70,7 @@ operations if no specific parameters are provided to those methods.</li>
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">FetchResultCubit({FetchResultState&lt;T&gt;? initialState, this.params})
+  <pre class="language-dart"><code class="language-dart">FetchResultCubit({FetchResultState&lt;T&gt;? initialState})
   : super(initialState ?? const FetchResultState.initial());</code></pre>
 </section>
 

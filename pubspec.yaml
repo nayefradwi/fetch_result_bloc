@@ -1,6 +1,6 @@
 name: fetch_result_bloc
 description: Abstract BLoC/Cubit components for simplified data fetching and state management.
-version: 1.0.0
+version: 1.1.0
 repository: https://github.com/nayefradwi/fetch_result_bloc
 
 environment:

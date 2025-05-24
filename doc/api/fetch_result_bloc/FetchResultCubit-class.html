@@ -96,7 +96,7 @@ Extend this class to implement specific data fetching logic by overriding
     <h2>Constructors</h2>
     <dl class="constructor-summary-list">
         <dt id="FetchResultCubit.new" class="callable">
-          <span class="name"><a href="../fetch_result_bloc/FetchResultCubit/FetchResultCubit.html">FetchResultCubit.new</a></span><span class="signature">({<span class="parameter" id="-param-initialState"><span class="type-annotation"><a href="../fetch_result_bloc/FetchResultState-class.html">FetchResultState</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span>?</span> <span class="parameter-name">initialState</span>, </span><span class="parameter" id="-param-params"><span class="type-annotation">P?</span> <span class="parameter-name">params</span></span>})</span>
+          <span class="name"><a href="../fetch_result_bloc/FetchResultCubit/FetchResultCubit.html">FetchResultCubit.new</a></span><span class="signature">({<span class="parameter" id="-param-initialState"><span class="type-annotation"><a href="../fetch_result_bloc/FetchResultState-class.html">FetchResultState</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span>?</span> <span class="parameter-name">initialState</span></span>})</span>
         </dt>
         <dd>
           Creates a <a href="../fetch_result_bloc/FetchResultCubit-class.html">FetchResultCubit</a>.
@@ -105,7 +105,7 @@ Extend this class to implement specific data fetching logic by overriding
   </section>
     
   <section
-      class="summary offset-anchor"
+      class="summary offset-anchor inherited"
       id="instance-properties">
     <h2>Properties</h2>
     <dl class="properties">
@@ -130,18 +130,6 @@ Extend this class to implement specific data fetching logic by overriding
 <dd class="inherited">
   Whether the bloc is closed.
   <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="params" class="property">
-  <span class="name"><a href="../fetch_result_bloc/FetchResultCubit/params.html">params</a></span>
-  <span class="signature">&#8594; P?</span>
-  
-
-</dt>
-<dd>
-  Optional default parameters for fetch operations.
-  <div class="features"><span class="feature">final</span></div>
 
 </dd>
 
@@ -234,7 +222,7 @@ is equal to the current <code>state</code>.
 </dd>
 
         <dt id="fetch" class="callable">
-  <span class="name"><a href="../fetch_result_bloc/FetchResultCubit/fetch.html">fetch</a></span><span class="signature">(<wbr>{<span class="parameter" id="fetch-param-params"><span class="type-annotation">P?</span> <span class="parameter-name">params</span></span>})
+  <span class="name"><a href="../fetch_result_bloc/FetchResultCubit/fetch.html">fetch</a></span><span class="signature">(<wbr>{<span class="parameter" id="fetch-param-param"><span>required</span> <span class="type-annotation">P</span> <span class="parameter-name">param</span></span>})
     <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.0/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
@@ -247,7 +235,7 @@ is equal to the current <code>state</code>.
 </dd>
 
         <dt id="getResult" class="callable">
-  <span class="name"><a href="../fetch_result_bloc/FetchResultCubit/getResult.html">getResult</a></span><span class="signature">(<wbr><span class="parameter" id="getResult-param-params"><span class="type-annotation">P</span> <span class="parameter-name">params</span></span>)
+  <span class="name"><a href="../fetch_result_bloc/FetchResultCubit/getResult.html">getResult</a></span><span class="signature">(<wbr>{<span class="parameter" id="getResult-param-param"><span>required</span> <span class="type-annotation">P</span> <span class="parameter-name">param</span></span>})
     <span class="returntype parameter">&#8594; <a href="https://pub.dev/documentation/result_flow/1.1.1/result_flow/FutureResult.html">FutureResult</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
   </span>
   
@@ -303,7 +291,7 @@ A <code>change</code> occurs when a new <code>state</code> is emitted.
 </dd>
 
         <dt id="refresh" class="callable">
-  <span class="name"><a href="../fetch_result_bloc/FetchResultCubit/refresh.html">refresh</a></span><span class="signature">(<wbr>{<span class="parameter" id="refresh-param-params"><span class="type-annotation">P?</span> <span class="parameter-name">params</span></span>})
+  <span class="name"><a href="../fetch_result_bloc/FetchResultCubit/refresh.html">refresh</a></span><span class="signature">(<wbr>{<span class="parameter" id="refresh-param-param"><span>required</span> <span class="type-annotation">P</span> <span class="parameter-name">param</span></span>})
     <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/3.8.0/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   

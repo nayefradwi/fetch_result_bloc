@@ -55,8 +55,8 @@
     <section class="multi-line-signature">
       
 <span class="returntype"><a href="https://pub.dev/documentation/result_flow/1.1.1/result_flow/FutureResult.html">FutureResult</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
-<span class="name ">getResult</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="getResult-param-params"><span class="type-annotation">P</span> <span class="parameter-name">params</span></span></li>
-</ol>)
+<span class="name ">getResult</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="getResult-param-param"><span>required</span> <span class="type-annotation">P</span> <span class="parameter-name">param</span>, </span></li>
+</ol>})
 
       
 
@@ -66,7 +66,7 @@
   <p>Abstract method to be implemented by subclasses to perform the actual
 data fetching.</p>
 <ul>
-<li><code>params</code>: The parameters required for fetching data.
+<li><code>param</code>: The parameters required for fetching data.
 Returns a <a href="https://pub.dev/documentation/result_flow/1.1.1/result_flow/FutureResult.html">FutureResult</a> containing either the fetched data <code>T</code> or a
 <a href="https://pub.dev/documentation/result_flow/1.1.1/result_flow/ResultError-class.html">ResultError</a>.</li>
 </ul>
@@ -76,7 +76,7 @@ Returns a <a href="https://pub.dev/documentation/result_flow/1.1.1/result_flow/F
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">FutureResult&lt;T&gt; getResult(P params);</code></pre>
+  <pre class="language-dart"><code class="language-dart">FutureResult&lt;T&gt; getResult({required P param});</code></pre>
 </section>
 
 

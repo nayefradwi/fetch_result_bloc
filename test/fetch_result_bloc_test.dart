@@ -25,6 +25,13 @@ class MockFetchResultBloc extends FetchResultBloc<bool, String> {
   FutureResult<String> getResult(bool params) => fetchResult(params);
 }
 
+class VoidMockFetchResultBloc extends FetchResultBloc<void, String> {
+  @override
+  FutureResult<String> getResult(void params) async {
+    return Result.success('success');
+  }
+}
+
 void main() {
   group('FetchResultBloc', () {
     blocTest<MockFetchResultBloc, FetchResultState<String>>(
@@ -131,6 +138,40 @@ should emit [refreshing, loaded] even after adding FetchRefreshResultEvent multi
           ..add(const FetchRefreshResultEvent(false))
           ..add(const FetchRefreshResultEvent(false));
       },
+      wait: blocTestWait,
+      expect: () => [
+        isA<FetchResultStateRefreshing<String>>(),
+        isA<FetchResultStateLoaded<String>>(),
+      ],
+      verify: (bloc) {
+        expect(bloc.state, isA<FetchResultStateLoaded<String>>());
+        final state = bloc.state as FetchResultStateLoaded<String>;
+        expect(state.data, 'success');
+      },
+    );
+  });
+
+  group('VoidMockFetchResultBloc', () {
+    blocTest<VoidMockFetchResultBloc, FetchResultState<String>>(
+      'should emit [loading, loaded] when FetchLoadResultEvent is added',
+      build: VoidMockFetchResultBloc.new,
+      act: (bloc) => bloc.add(const FetchLoadResultEvent(null)),
+      wait: blocTestWait,
+      expect: () => [
+        isA<FetchResultStateLoading<String>>(),
+        isA<FetchResultStateLoaded<String>>(),
+      ],
+      verify: (bloc) {
+        expect(bloc.state, isA<FetchResultStateLoaded<String>>());
+        final state = bloc.state as FetchResultStateLoaded<String>;
+        expect(state.data, 'success');
+      },
+    );
+
+    blocTest<VoidMockFetchResultBloc, FetchResultState<String>>(
+      'should emit [refreshing, loaded] when FetchRefreshResultEvent is added',
+      build: VoidMockFetchResultBloc.new,
+      act: (bloc) => bloc.add(const FetchRefreshResultEvent(null)),
       wait: blocTestWait,
       expect: () => [
         isA<FetchResultStateRefreshing<String>>(),

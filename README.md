@@ -7,7 +7,6 @@ managing states for asynchronous data fetching operations.
 - 🧱 Provides `FetchResultBloc` for event-driven state management.
 - 🧊 Offers `FetchResultCubit` for simpler, direct state management.
 - 🚦 Clearly defines states for loading, success (with data), and error (with details).
-- 🛠️ Customizable error handling options.
 
 ## Getting started
 
@@ -35,7 +34,10 @@ class CounterCubit extends FetchResultCubit<int, void> {
   CounterCubit() : super(const FetchResultStateInitial());
 
   @override
-  FutureResult<int> getResult(void param) async {
+  Future<void> fetch({void param}) => super.fetch(param: null);
+
+  @override
+  FutureResult<int> getResult({void param}) async {
     await Future.delayed(const Duration(seconds: 1));
     return Result.success(42);
   }
@@ -52,8 +54,7 @@ void main() async {
 }
 ```
 
-For more detailed examples, including `FetchResultBloc` usage and error handling,
-please see the `/example` folder.
+For more detailed examples, including `FetchResultBloc` usage please see the `/example` folder.
 
 ## Related Packages
 
