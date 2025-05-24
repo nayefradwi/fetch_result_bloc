@@ -34,7 +34,10 @@ class CounterCubit extends FetchResultCubit<int, void> {
   CounterCubit() : super(const FetchResultStateInitial());
 
   @override
-  FutureResult<int> getResult(void param) async {
+  Future<void> fetch({void param}) => super.fetch(param: null);
+
+  @override
+  FutureResult<int> getResult({void param}) async {
     await Future.delayed(const Duration(seconds: 1));
     return Result.success(42);
   }
