@@ -1,3 +1,7 @@
+## 1.3.0
+
+- jumping to 1.3.0 to make it consistent with result_flow
+
 ## 1.1.0
 
 - updated `FetchResultCubit` to allow fetching void parameters for cases where parameters are not required
